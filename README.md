@@ -1,40 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Employee Management System
 
-## Getting Started
+## Overview
+The **Employee Management System** is a web application where admins can assign tasks to employees, monitor their progress, and update their status. Employees receive assigned tasks, complete them, and submit a completion URL. The system provides a user-friendly interface with secure authentication for both admin and employees.
 
-First, run the development server:
+## Features
+- **Admin Features:**
+  - Assign tasks to employees.
+  - Monitor task progress.
+  - Update task status upon completion.
+- **Employee Features:**
+  - View assigned tasks.
+  - Submit task completion URL.
+  - Track task status.
+- **Authentication & Security:**
+  - Separate login protection for Admin and Employees.
+  - Secure token-based authentication.
+- **Technologies Used:**
+  - **Frontend:** Next.js, React, TypeScript, Tailwind CSS
+  - **Backend:** Node.js, Express.js, Mongoose (MongoDB)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Admin Credentials
+```
+Email: admin1@example.com
+Password: admin123
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Getting Started
+### Prerequisites
+Ensure you have the following installed:
+- Node.js
+- MongoDB
+- Git
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Installation
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/jeya-chandran-jcs/employee-management-frontend
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Set up environment variables in a `.env` file:
+   ```env
+   MONGO_URI=your-mongodb-url
+   JWT_SECRET=your-secret-key
+   ```
+4. Start the development server:
+   ```sh
+   npm run dev
+   ```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Usage
+- Admin assigns tasks to employees.
+- Employees complete tasks and submit completion URLs.
+- Admin monitors and updates task statuses.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## License
+This project is open-source and free to use.
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.

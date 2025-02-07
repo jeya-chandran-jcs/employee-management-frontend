@@ -1,0 +1,1 @@
+export const API="https://empolyee-management-backend-zriz.onrender.com/"
