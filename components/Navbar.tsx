@@ -2,13 +2,18 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router"
+import { useSelector,useDispatch } from "react-redux"
+import {setSearchQuery} from "../redux/feature/searchSlice"
+import {RootState} from "../redux/store"
 
 const Navbar: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [token, setToken] = useState<string | null>(null);
   const router = useRouter()
-
+  const dispatch=useDispatch()
+  const searchEmployee=useSelector((state:RootState)=>state.employees.searchQuery)
+  
   useEffect(() => {
     setIsClient(true);
     const userRole = Cookies.get("user");
@@ -21,7 +26,7 @@ const Navbar: React.FC = () => {
       setAdmin(false)
     }
   },);
-  console.log("from nav", admin, "\n", token)
+  // console.log("from nav", admin, "\n", token)
 
   const handleLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
 
@@ -30,6 +35,11 @@ const Navbar: React.FC = () => {
     Cookies.remove("user")
     alert("successfully log out")
     router.push("/user/login")
+  }
+
+  const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+    dispatch(setSearchQuery(e.target.value))
+    console.log(searchEmployee)
   }
 
   if (!isClient) return null;
@@ -52,14 +62,20 @@ const Navbar: React.FC = () => {
         )}
       </div>
 
+      {admin ? 
       <div className="flex items-center gap-2 border border-white rounded-lg px-3 py-1 bg-white">
-        <p className="text-gray-500">🔍</p>
-        <input
-          className="w-40 md:w-60 px-2 py-1 text-gray-600 text-md font-serif border-none outline-none bg-transparent focus:bg-white "
-          name="input"
-          placeholder="Search..."
-        />
-      </div>
+      <p className="text-gray-500">🔍</p>
+      <input
+        className="w-40 md:w-60 px-2 py-1 text-gray-600 text-md font-serif border-none outline-none bg-transparent focus:bg-white "
+        name="input"
+        placeholder="Search..."
+        value={searchEmployee}
+        onChange={handleChange}
+       />
+    </div>
+    :
+    null
+      }
 
       <div>
         {token ?

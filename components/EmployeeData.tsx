@@ -3,6 +3,8 @@ import { API } from "../global"
 import Cookies from "js-cookie"
 import Link from "next/link"
 import axios from "axios"
+import {useSelector} from "react-redux"
+import {RootState } from "../redux/store"
 
 interface UserData {
   name: string,
@@ -22,6 +24,10 @@ const EmployeeData: React.FC = () => {
   const [status, setStatus] = useState<Status[]>([])
   const [loading, setLoading] = useState<Boolean>(false)
 
+  const searchEmployee=useSelector((state:RootState)=>state.employees.searchQuery)
+  console.log(searchEmployee,"from employee")
+
+
   const token = Cookies.get("token")
   const admin = Cookies.get("user") ? JSON.parse(Cookies.get("user") as string) : null
 
@@ -36,7 +42,11 @@ const EmployeeData: React.FC = () => {
         }
       })
       const filteredRole = response.data.filter((item: UserData) => item.role !== "admin")
-      setData(filteredRole)
+      const filteredSearch = filteredRole.filter((employee: UserData) => 
+        employee.name.toLowerCase().includes(searchEmployee.toLowerCase()) || 
+        employee.department.toLowerCase().includes(searchEmployee.toLowerCase())
+      )
+      setData(filteredSearch)
       setLoading(false)
     }
     catch (error) {
@@ -64,7 +74,7 @@ const EmployeeData: React.FC = () => {
       fetchEmployee()
       getEmployeeStatus()
     }
-  }, [admin])
+  }, [admin,searchEmployee])
 
   const getStatus = (employeeId: string) => {
     const statusEntry = status.find((statusInfo) => statusInfo.name === employeeId)
